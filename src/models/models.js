@@ -33,42 +33,6 @@ export async function removePostById(id) {
 
 
 
-
-
-
-
-
-// export async function getPostById(id) {
-//     return postsCollection.findOne({ _id: id });
-// }
-
-// export async function getPostByWord(word) {
-//     return postsCollection.find({ $text: { $search: word } }).toArray();
-// }
-
-// export async function createPost(post) {
-//     return postsCollection.insertOne(post);
-// }
-
-// export async function updatePost(post, updatePost) {
-//     return postsCollection.updateOne(
-//         post,
-//         { $set: updatePost },
-//     );
-// }
-
-// export async function replacePostByWord(post, newPost) {
-//     return postsCollection.replaceOne(
-//         post,
-//         newPost,
-//     );
-// }
-
-// export async function deletePost(post) {
-//     return postsCollection.deleteOne(post);
-// }
-
-
 export async function getAllUsers() {
     // access users's collection
     const usersCollection = dbConnection.db("instabytes").collection("users");
