@@ -15,6 +15,7 @@ export async function allPosts(req, res) {
 
 export async function postById(req, res) {
     const index = req.params.id
+
     try {
         const post = await getPostById(index);
         res.status(200).json(post);
@@ -27,6 +28,7 @@ export async function postById(req, res) {
 
 export async function createNewPost(req, res) {
     const post = req.body;
+
     try {
         const createdPost = await createPost(post);
         res.status(200).json(createdPost);
@@ -39,6 +41,7 @@ export async function createNewPost(req, res) {
 export async function updatePost(req, res) {
     const index = req.params.id;
     const newPost = req.body;
+
     try {
         const post = await updatePostById(index, newPost);
         res.status(200).json(post);
@@ -69,6 +72,7 @@ export async function imagePost(req, res) {
 
 export async function updateImagePost(req, res) {
     const index = req.params.id;
+
     try {
         const postFrom = await getPostById(index);
         const ext = postFrom.imgUrl.split(".").pop().toLowerCase();
@@ -94,7 +98,7 @@ export async function updateImagePost(req, res) {
 
 export async function removePost(req, res) {
     const index = req.params.id;
-    // const urlImage = `http://localhost:3000/${id}.${ext}`;
+
     try {
         const post = await getPostById(index);
         if (post.imgUrl) {
@@ -108,20 +112,3 @@ export async function removePost(req, res) {
         res.status(500).json({ message: "Server error" });
     }
 }
-
-// export async function updateImagePost(req, res) {
-//     const id = req.params.id;
-//     const urlImage = `http://localhost:3000/${id}.png`;
-//     const post = {
-//         imgUrl: urlImage,
-//         description: req.body.description,
-//         alt: req.body.alt,
-//     }
-//     try {
-//         const imageUpdate = await updatePostById(id, post);
-//         res.status(200).json(imageUpdate);
-//     } catch (error) {
-//         console.error(error.message);
-//         res.status(500).json({ message: "Server error" });
-//     }
-// }

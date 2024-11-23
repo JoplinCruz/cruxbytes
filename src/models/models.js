@@ -29,14 +29,3 @@ export async function removePostById(id) {
     const objectId = ObjectId.createFromHexString(id);
     return postsCollection.deleteOne({ _id: new ObjectId(objectId) });
 }
-
-
-
-
-export async function getAllUsers() {
-    // access users's collection
-    const usersCollection = dbConnection.db("instabytes").collection("users");
-
-    // return all documents of collection into array type
-    return usersCollection.find().toArray();
-}
