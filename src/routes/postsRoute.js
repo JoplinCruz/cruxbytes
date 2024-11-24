@@ -17,7 +17,7 @@ const corsOptions = {
     optionsSuccessStatus: 200,
 }
 
-const upload = multer({ dest: "./uploads", storage });
+const upload = multer({ storage: storage });
 
 
 const routesOfPosts = (app) => {
