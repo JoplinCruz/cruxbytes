@@ -76,9 +76,9 @@ export async function updateImagePost(req, res) {
     try {
         const postFrom = await getPostById(index);
         const ext = postFrom.imgUrl.split(".").pop().toLowerCase();
-        const mimetype = ext === "jpg" ? "image/jpeg" : `image/${ext}`;
-
         const urlImage = `http://localhost:3000/${index}.${ext}`;
+
+        const mimetype = ext === "jpg" ? "image/jpeg" : `image/${ext}`;
         const imgBuffer = fs.readFileSync(`uploads/${index}.${ext}`);
         const description = await generateDescriptionWithGemini(imgBuffer, mimetype);
 
