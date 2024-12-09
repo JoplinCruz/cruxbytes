@@ -1,11 +1,12 @@
 import express from "express";
 import multer from "multer";
 import cors from "cors";
+import path from "path";
 import { allPosts, createNewPost, imagePost, postById, removePost, updateImagePost, updatePost } from "../controllers/postsController.js";
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "uploads/");
+        cb(null, path.join(process.cwd(), "uploads/"));
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname);

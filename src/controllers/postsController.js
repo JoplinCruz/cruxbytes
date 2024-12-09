@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 import generateDescriptionWithGemini from "../services/geminiService.js";
 import { getAllPosts, createPost, updatePostById, getPostById, removePostById } from "../models/models.js";
 
@@ -79,7 +80,7 @@ export async function updateImagePost(req, res) {
         const urlImage = `http://localhost:3000/${index}.${ext}`;
 
         const mimetype = ext === "jpg" ? "image/jpeg" : `image/${ext}`;
-        const imgBuffer = fs.readFileSync(`uploads/${index}.${ext}`);
+        const imgBuffer = fs.readFileSync(path.join(process.cwd(), `uploads/${index}.${ext}`));
         const description = await generateDescriptionWithGemini(imgBuffer, mimetype);
 
         const post = {
@@ -103,7 +104,7 @@ export async function removePost(req, res) {
         const post = await getPostById(index);
         if (post.imgUrl) {
             const ext = post.imgUrl.split(".").pop().toLowerCase();
-            const removedFile = fs.unlinkSync(`uploads/${index}.${ext}`);
+            const removedFile = fs.unlinkSync(path.join(__dirname, `uploads/${index}.${ext}`));
         }
         const removedPost = await removePostById(index);
         res.status(200).json(removedPost);
