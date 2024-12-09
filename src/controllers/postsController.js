@@ -4,6 +4,8 @@ import generateDescriptionWithGemini from "../services/geminiService.js";
 import { getAllPosts, createPost, updatePostById, getPostById, removePostById } from "../models/models.js";
 
 
+const basedir = path.join(import.meta.dirname, "../../");
+
 export async function allPosts(req, res) {
     try {
         const posts = await getAllPosts();
@@ -62,9 +64,9 @@ export async function imagePost(req, res) {
     try {
         const createdPost = await createPost(post);
         const ext = req.file.originalname.split(".").pop().toLowerCase();
-        const actualImage = `uploads/${createdPost.insertedId}.${ext}`;
-        fs.renameSync(req.file.path, actualImage);
-        res.status(200).json(createdPost);
+        const actualImage = `${createdPost.insertedId}.${ext}`;
+        console.log(req.file.path);
+        fs.renameSync(req.file.path, path.join("uploads", actualImage));
     } catch (error) {
         console.error(error.message);
         res.status(500).json({ message: "Require failed" });
@@ -80,7 +82,7 @@ export async function updateImagePost(req, res) {
         const urlImage = `http://localhost:3000/${index}.${ext}`;
 
         const mimetype = ext === "jpg" ? "image/jpeg" : `image/${ext}`;
-        const imgBuffer = fs.readFileSync(path.join(process.cwd(), `uploads/${index}.${ext}`));
+        const imgBuffer = fs.readFileSync(path.join(basedir, "uploads", `${index}.${ext}`));
         const description = await generateDescriptionWithGemini(imgBuffer, mimetype);
 
         const post = {
@@ -104,7 +106,7 @@ export async function removePost(req, res) {
         const post = await getPostById(index);
         if (post.imgUrl) {
             const ext = post.imgUrl.split(".").pop().toLowerCase();
-            const removedFile = fs.unlinkSync(path.join(__dirname, `uploads/${index}.${ext}`));
+            const removedFile = fs.unlinkSync(path.join(basedir, "uploads", `${index}.${ext}`));
         }
         const removedPost = await removePostById(index);
         res.status(200).json(removedPost);

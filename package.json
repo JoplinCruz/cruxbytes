@@ -1,8 +1,8 @@
 {
-  "name": "",
+  "name": "instabytes-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "license": "AGPL-version-3.0",
   "private": false,
@@ -13,14 +13,14 @@
   "homepage": "",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/JoplinCruz"
   },
   "bugs": "",
   "keywords": [],
   "author": {
     "name": "",
-    "email": "",
-    "url": ""
+    "email": "joplin.da.cruz@gmail.com",
+    "url": "https://github.com/JoplinCruz"
   },
   "contributors": [],
   "scripts": {
